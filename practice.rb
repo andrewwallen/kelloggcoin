@@ -27,3 +27,30 @@ blockchain = [
 # Anthony's KelloggCoin balance is 2650
 
 # 👇👇👇 Your code HERE 👇👇👇
+
+wallet = {}
+
+index = 0
+loop do
+  if index == blockchain.length
+    break
+  end
+
+  transaction = blockchain[index]
+
+  if transaction["from_user"]
+    wallet[transaction["from_user"]] ||= 0
+    wallet[transaction["from_user"]] -= transaction["amount"]
+  end
+
+  if transaction["to_user"]
+    wallet[transaction["to_user"]] ||= 0
+    wallet[transaction["to_user"]] += transaction["amount"]
+  end
+
+  index += 1
+end
+
+wallet.each do |user, balance|
+  puts "#{user}'s KelloggCoin balance is #{balance}."
+end
